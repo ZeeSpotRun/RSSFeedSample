@@ -19,6 +19,8 @@
 		A24CA5DB19A51606006C52B7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24CA5C319A51606006C52B7 /* UIKit.framework */; };
 		A24CA5E319A51606006C52B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A24CA5E119A51606006C52B7 /* InfoPlist.strings */; };
 		A24CA5E519A51606006C52B7 /* RSSFeediTunesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A24CA5E419A51606006C52B7 /* RSSFeediTunesTests.m */; };
+		A261146B19B90A7E00A7EDFD /* FeedItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A261146A19B90A7E00A7EDFD /* FeedItem.m */; };
+		A2B1344519B91A7A006F64DA /* blanksquare.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A2B1344419B91A7A006F64DA /* blanksquare.jpg */; };
 		A2DADE6319A913FD0023AAE7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DADE3E19A913FD0023AAE7 /* AFHTTPRequestOperation.m */; };
 		A2DADE6419A913FD0023AAE7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DADE4019A913FD0023AAE7 /* AFHTTPRequestOperationManager.m */; };
 		A2DADE6519A913FD0023AAE7 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DADE4219A913FD0023AAE7 /* AFHTTPSessionManager.m */; };
@@ -68,6 +70,9 @@
 		A24CA5E019A51606006C52B7 /* RSSFeediTunesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSSFeediTunesTests-Info.plist"; sourceTree = "<group>"; };
 		A24CA5E219A51606006C52B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A24CA5E419A51606006C52B7 /* RSSFeediTunesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSFeediTunesTests.m; sourceTree = "<group>"; };
+		A261146919B90A7E00A7EDFD /* FeedItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedItem.h; sourceTree = "<group>"; };
+		A261146A19B90A7E00A7EDFD /* FeedItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedItem.m; sourceTree = "<group>"; };
+		A2B1344419B91A7A006F64DA /* blanksquare.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blanksquare.jpg; sourceTree = "<group>"; };
 		A2DADE3D19A913FD0023AAE7 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		A2DADE3E19A913FD0023AAE7 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		A2DADE3F19A913FD0023AAE7 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -167,6 +172,7 @@
 		A24CA5C519A51606006C52B7 /* RSSFeediTunes */ = {
 			isa = PBXGroup;
 			children = (
+				A2B1344319B91A7A006F64DA /* Images */,
 				A2DADE3C19A913FD0023AAE7 /* AFNetworking */,
 				A2DADE5119A913FD0023AAE7 /* UIKit+AFNetworking */,
 				A24CA5CE19A51606006C52B7 /* AppDelegate.h */,
@@ -176,6 +182,8 @@
 				A2DADE7519A929180023AAE7 /* iTunesTableViewController.h */,
 				A2DADE7619A929180023AAE7 /* iTunesTableViewController.m */,
 				A2DADE7719A929180023AAE7 /* iTunesTableViewController.xib */,
+				A261146919B90A7E00A7EDFD /* FeedItem.h */,
+				A261146A19B90A7E00A7EDFD /* FeedItem.m */,
 			);
 			path = RSSFeediTunes;
 			sourceTree = "<group>";
@@ -207,6 +215,14 @@
 				A24CA5E119A51606006C52B7 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A2B1344319B91A7A006F64DA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A2B1344419B91A7A006F64DA /* blanksquare.jpg */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		A2DADE3C19A913FD0023AAE7 /* AFNetworking */ = {
@@ -338,6 +354,7 @@
 				A24CA5CA19A51606006C52B7 /* InfoPlist.strings in Resources */,
 				A2DADE7919A929180023AAE7 /* iTunesTableViewController.xib in Resources */,
 				A24CA5D219A51606006C52B7 /* Images.xcassets in Resources */,
+				A2B1344519B91A7A006F64DA /* blanksquare.jpg in Resources */,
 				A2DADE6619A913FD0023AAE7 /* AFNetworking.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,6 +377,7 @@
 				A2DADE6319A913FD0023AAE7 /* AFHTTPRequestOperation.m in Sources */,
 				A2DADE7119A913FD0023AAE7 /* UIImageView+AFNetworking.m in Sources */,
 				A24CA5D019A51606006C52B7 /* AppDelegate.m in Sources */,
+				A261146B19B90A7E00A7EDFD /* FeedItem.m in Sources */,
 				A2DADE6419A913FD0023AAE7 /* AFHTTPRequestOperationManager.m in Sources */,
 				A2DADE7219A913FD0023AAE7 /* UIProgressView+AFNetworking.m in Sources */,
 				A2DADE6719A913FD0023AAE7 /* AFNetworkReachabilityManager.m in Sources */,

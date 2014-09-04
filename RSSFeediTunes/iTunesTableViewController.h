@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
+#import "FeedItem.h"
 
 
 @interface iTunesTableViewController : UITableViewController
 
-@property (strong, nonatomic) NSDictionary *iTunesFeed;
 @property (strong, nonatomic) NSMutableArray *iTunesArray;
+@property (strong, nonatomic) NSOperationQueue *imageDownloadQueue;
+@property (strong, nonatomic) NSCache *imageCache;
 
 @end

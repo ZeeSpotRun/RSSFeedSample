@@ -14,24 +14,102 @@
 
 @implementation iTunesTableViewController
 
+@synthesize iTunesArray, imageDownloadQueue, imageCache;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Reload"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(startConnection)];
     
    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    
+    imageCache = [[NSCache alloc] init];
+    imageCache.countLimit = 50;
+    
+    imageDownloadQueue = [[NSOperationQueue alloc]init];
     [self startConnection];
+    
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    [imageDownloadQueue cancelAllOperations];
+
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+
+    return [iTunesArray count];
+    
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
+    
+    if (!cell){
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
+    }
+    
+    /* Set text for TableViewCell */
+    
+    FeedItem *appDetail = (FeedItem *) iTunesArray[indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"#%i %@", indexPath.row + 1, appDetail.name];
+    
+    /* Add image asynchronously */
+    
+    UIImage *cachedImage = [imageCache objectForKey:appDetail.imageURL];
+    
+    if (cachedImage){
+        cell.imageView.image = cachedImage;
+    } else {
+        cell.imageView.image = [UIImage imageNamed:@"blanksquare.jpg"];
+        
+       [imageDownloadQueue addOperationWithBlock:^{
+            
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:appDetail.imageURL]];
+            UIImage *image    = nil;
+            
+            if (imageData) image = [UIImage imageWithData:imageData];
+            
+            if (image){
+                
+                [imageCache setObject:image forKey:appDetail.imageURL];
+            }
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                UITableViewCell *updateCell = [tableView cellForRowAtIndexPath:indexPath];
+                if (updateCell) cell.imageView.image = [UIImage imageWithData:imageData];
+
+            }];
+            
+        }];
+        
+    }
+    
+        return cell;
+}
+
+#pragma mark Data Methods
 
 -(void)startConnection
 {
+    
     NSURL *feedURL = [[NSURL alloc]initWithString:@"http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/ws/RSS/topgrossingapplications/sf=143441/limit=25/json"];
     
     NSMutableURLRequest *feedRequest = [[NSMutableURLRequest alloc] initWithURL:feedURL];
@@ -41,9 +119,11 @@
     
     [feedOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        self.iTunesFeed = (NSDictionary *)responseObject;
-        [self fromResponsetoITunesArray];
-        self.title = @"Top Apps";
+        NSDictionary *dataFeed = (NSDictionary *)responseObject;
+        [self fromResponsetoDataArray:dataFeed];
+        
+        [self.tableView reloadData];
+
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -57,15 +137,15 @@
     }];
     
     [feedOperation start];
-
+    
 }
 
--(void)fromResponsetoITunesArray
+-(void)fromResponsetoDataArray:(NSDictionary*)dataFeed
 {
-    self.iTunesArray = [[NSMutableArray alloc]init];
+   iTunesArray = [[NSMutableArray alloc]init];
     
-    NSDictionary *feedDict = [self.iTunesFeed valueForKey:@"feed"];
-
+    NSDictionary *feedDict = [dataFeed valueForKey:@"feed"];
+    
     NSArray *entries = [feedDict valueForKey:@"entry"];
     
     for (NSDictionary *entry in entries) {
@@ -76,59 +156,18 @@
         NSArray *imageArray = [entry valueForKey:@"im:image"];
         NSDictionary *imageDict = imageArray[0];
         NSString *imageURL = [imageDict valueForKey:@"label"];
-        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
         
-        NSMutableDictionary *appDictionary = [[NSMutableDictionary alloc]init];
-        [appDictionary setValue:name forKey:@"name"];
-        [appDictionary setValue:imageData forKey:@"imageData"];
+        FeedItem *appRecord = [[FeedItem alloc]init];
+        appRecord.name = name;
+        appRecord.imageURL = imageURL;
+
         
-        [self.iTunesArray addObject:appDictionary];
+        [iTunesArray addObject:appRecord];
         
     }
     
-    [self.tableView reloadData];
-    
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    return [self.iTunesArray count];
-    
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCell"];
-    
-    if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-    }
-    
-    NSDictionary *appInfo = self.iTunesArray[indexPath.row];
-    NSData *imageData = [appInfo valueForKey:@"imageData"];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"#%i %@", indexPath.row + 1, [appInfo valueForKey:@"name"]];
-    [cell.imageView setImage:[UIImage imageWithData:imageData]];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    return cell;
-}
 
 
 @end

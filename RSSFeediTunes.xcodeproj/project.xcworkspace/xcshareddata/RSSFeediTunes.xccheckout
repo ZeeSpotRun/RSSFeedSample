@@ -5,13 +5,15 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>FA61DC26-46BF-4E50-916B-0CA89D18C1A7</string>
+	<string>0052B72B-BC3D-4382-821E-FF678864702C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>RSSFeediTunes</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>139C7D51-7795-421D-BE31-B362DC686D22</key>
 		<string>https://github.com/ZeeSpotRun/LocalSeasonal_CircleAnimation.git</string>
+		<key>3E9887EA-6E32-436F-B212-8FE2B9DC8DDC</key>
+		<string>https://github.com/ZeeSpotRun/RSSFeedSample.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RSSFeediTunes/RSSFeediTunes.xcodeproj/project.xcworkspace</string>
@@ -19,9 +21,11 @@
 	<dict>
 		<key>139C7D51-7795-421D-BE31-B362DC686D22</key>
 		<string>../../..</string>
+		<key>3E9887EA-6E32-436F-B212-8FE2B9DC8DDC</key>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ZeeSpotRun/LocalSeasonal</string>
+	<string>https://github.com/ZeeSpotRun/RSSFeedSample.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -35,6 +39,14 @@
 			<string>139C7D51-7795-421D-BE31-B362DC686D22</string>
 			<key>IDESourceControlWCCName</key>
 			<string>APPS</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3E9887EA-6E32-436F-B212-8FE2B9DC8DDC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RSSFeediTunes</string>
 		</dict>
 	</array>
 </dict>
